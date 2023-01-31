@@ -1,6 +1,8 @@
 package lk.ijse.dep9.springbootbackend.model;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "employee")
