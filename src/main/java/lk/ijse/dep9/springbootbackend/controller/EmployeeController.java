@@ -2,10 +2,7 @@ package lk.ijse.dep9.springbootbackend.controller;
 
 import lk.ijse.dep9.springbootbackend.model.Employee;
 import lk.ijse.dep9.springbootbackend.repository.EmployeeRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @CrossOrigin
@@ -18,8 +15,15 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
-    @GetMapping("employees")                     //get all employees
+    //get all employees
+    @GetMapping("employees")
     public List<Employee> getAllEmployee(){
         return employeeRepository.findAll();
+
+    }
+    //create employee rest api
+    @PostMapping("employees")
+    public Employee createEmployee(@RequestBody Employee employee){
+        return employeeRepository.save(employee);
     }
 }
