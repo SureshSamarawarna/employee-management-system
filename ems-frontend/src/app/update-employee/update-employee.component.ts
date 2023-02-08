@@ -17,7 +17,7 @@ export class UpdateEmployeeComponent implements OnInit  {
   
 
   constructor(private employeeService:EmployeeService,
-    private route:ActivatedRoute,private router2:Router){
+    private route:ActivatedRoute,private router:Router){
 
   }
   ngOnInit(): void {
@@ -28,8 +28,10 @@ export class UpdateEmployeeComponent implements OnInit  {
     
   }
   onSubmit(){
-    this.employeeService.updateEmployee(this.employee);
-    this.router2.navigate(['employees']);
+    this.employeeService.updateEmployee(this.employee).subscribe(data=>{
+      this.router.navigate(['employees']);
+    },error=>console.error());
+    
   }
 
 }
