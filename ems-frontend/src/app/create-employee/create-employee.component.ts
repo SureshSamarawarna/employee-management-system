@@ -26,10 +26,11 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeService.createEmployee(this.employee).subscribe(data => {
       console.log(data);
     },error => console.error(error));
+    this.goToEmplyeeList();
     
   }
 
-  goToEmplyee(){
+  goToEmplyeeList(){
     this.router.navigate(['/employees']);
   }
 
