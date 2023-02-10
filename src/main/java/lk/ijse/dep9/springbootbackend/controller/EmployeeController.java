@@ -6,7 +6,9 @@ import lk.ijse.dep9.springbootbackend.repository.EmployeeRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -39,7 +41,8 @@ public class EmployeeController {
 
     @PutMapping("employees/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable int id,@RequestBody Employee employeeDetails){
-        Employee employee = employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee not exist with id: "+id));
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Employee not exist with id: "+id));
 
         employee.setFirstName(employeeDetails.getFirstName());
         employee.setLastName(employeeDetails.getLastName());
@@ -47,5 +50,15 @@ public class EmployeeController {
 
         Employee updatedEmployee = employeeRepository.save(employee);
         return ResponseEntity.ok(updatedEmployee);
+    }
+
+    @DeleteMapping("employees/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable int id){
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Employee not exist with id: "+id));
+        employeeRepository.delete(employee);
+        Map<String,Boolean> response= new HashMap<>();
+        response.put("deleted",Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }
